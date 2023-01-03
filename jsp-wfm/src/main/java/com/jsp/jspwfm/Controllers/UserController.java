@@ -1,5 +1,6 @@
 package com.jsp.jspwfm.Controllers;
 
+
 import com.jsp.jspwfm.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -17,5 +19,11 @@ public class UserController {
     public ResponseEntity testFetchUser(@RequestParam String username,@RequestParam String password)
     {
         return new ResponseEntity<>(userService.getUser(username,password), HttpStatusCode.valueOf(200));
+    }
+
+    @RequestMapping("/login")
+    public ResponseEntity<Object> login(@RequestParam String username,@RequestParam String password)
+    {
+      return ResponseEntity.status(200).body(userService.login(username, password));
     }
 }
