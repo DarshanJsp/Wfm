@@ -19,15 +19,17 @@ public class UserService {
 		return usersRepository.getUserByUsername(username);
 	}
 
-	public Object login(String username, String password) {
-		User user = usersRepository.getUserByUsername(username);
+	public Object login(String usernameOrEmail, String password) {
+
+		User user = usersRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
 
 		if (user != null) {
 			if (user.getPassword().equals(password))
 
 			{
 				return user;
-			} else {
+			} 
+			else {
 				try {
 					throw new PasswordInvalidException("Invalid password or username");
 				} catch (PasswordInvalidException exception) {
